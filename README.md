@@ -1,39 +1,73 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+## **About**
+SkyPay is a comprehensive payment gateway solution in Nepal by SkyBase Innovations. It simplifies integration, boosts developer productivity, reduces costs, and minimizes technical challenges. With options like Manual Entry, Merchant API, and SkyPay Managed, it streamlines online payments and is especially beneficial for developers. It also supports various payment methods, including Khalti, eliminating the need to integrate with individual banks.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+## **Pre-requisites**
+1. Create your **FREE MERCHANT ACCOUNT** here: [Merchant Registration Page](https://pay.skybase.com.np/register)
+2. Download & set up the **Merchant App** from the link available your Dashboard
+3. Copy your **Access Key / API** Key provided on your dashboard page
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+## **Getting Started**
+- Import package: ```import 'package:skypay_pkg/skypay_pkg.dart';```
+- Create a navigator key in your ```main.dart```
+    
+    ```bash
+    class SkyPayDemoApp extends StatefulWidget {
+        final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+         SkyPayDemoApp({super.key});
+    ```
+- Pass the navigator key in your Material app
+    ```bash
+    return MaterialApp(
+      navigatorKey: widget.navigatorKey,
+    ```
+- Go to your Skypay dashboard and copy the ```API Key``` from **My Api Key**
+</br></br><img src="assets/api_key.png" alt="Markdown Monster icon" style="height: 200px; width:auto;" />
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+- Override your ```initState``` method with the following
+    ```bash
+    @override
+  void initState() {
+    Skypay.initConfig(
+        navigatorKey: widget.navigatorKey, accessKey: "870027");
+    super.initState();
+  }
+    ```
+    Replace the accessKey with your api key
 
-## Features
+## Initialize Payment
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```bash
+Skypay.initPayment(
+    orderId: "123457",
+    amount: 100,
+    onSuccess: (data) {
+        //On Success Event
+    },
+    onFailure: (data) {
+        //On Fail Event
+    },
+    onCancellation: () {
+        //On Cancell Event
+    },
+);
 ```
 
-## Additional information
+### **Parameters**
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+| Parameter | Required | Description |  
+| --- | --- | --- |
+| amount | true | The transaction amount. |  |
+| success_url | false | URL to be redirected when payment successful |  |
+| failure_url | false | URL to be redirected when payment fails |  |
+| order_id | true | Unique identifier for the order (same order_id is available for 10 minutes) |  |
+
+### **Callbacks**
+
+- **onSuccess**: On successful transactions, you can use the onSuccess callback. The function will be invoked on a successful transaction.
+  
+- **onFailure**: On On failed transactions, you can use the onFailure callback. The function is responsible for handeling fail cases.
+
+- **onCancellation**: When user decides to cancel the payment the onCacellation function will be invoked.
+    
+
+That's it! You've successfully integrated Skybase Payments into your platform. If you have any questions or need further clarification, feel free to reach out to our support team.
