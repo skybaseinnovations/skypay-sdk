@@ -1,3 +1,5 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+### Thursday, 12th October, 2023
+
+* Initial release.
