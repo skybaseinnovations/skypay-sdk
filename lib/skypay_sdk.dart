@@ -1,9 +1,10 @@
 library skypay_pkg;
 
 import 'package:flutter/material.dart';
-import 'package:skypay_pkg/constants.dart';
-import 'package:skypay_pkg/payment_screen.dart';
-import 'package:skypay_pkg/sky_config.dart';
+import 'package:skypay_sdk/constants.dart';
+import 'package:skypay_sdk/payment_screen.dart';
+import 'package:skypay_sdk/sky_config.dart';
+
 
 class Skypay {
   static SkyConfig? _skyConfig;

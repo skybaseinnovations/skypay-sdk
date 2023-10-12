@@ -2,7 +2,7 @@ library skypay_pkg;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:skypay_pkg/constants.dart';
+import 'package:skypay_sdk/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PaymentScreen extends StatefulWidget {
