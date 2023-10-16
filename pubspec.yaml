@@ -1,6 +1,6 @@
 name: skypay_sdk
 description: Seamless payment integration for Flutter with SkyPay SDK – Simplify and secure payments in your apps effortlessly.
-version: 0.0.2
+version: 0.0.2+1
 homepage: https://github.com/skybaseinnovations/skypay-sdk
 
 environment:
