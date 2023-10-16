@@ -28,13 +28,17 @@ SkyPay is a comprehensive payment gateway solution in Nepal by SkyBase Innovatio
     @override
   void initState() {
     Skypay.initConfig(
-        navigatorKey: widget.navigatorKey, accessKey: "870027");
+        navigatorKey: widget.navigatorKey, 
+        apiKey: "870027",
+        );
     super.initState();
   }
     ```
-    Replace the accessKey with your api key
+    Replace the apiKey with your api key
 
 ## Initialize Payment
+
+To initiate a payment, use this code snippet with Skypay. Don't forget to set the orderId and amount as needed. Customize success, failure, and cancellation events to match your app.
 
 ```bash
 Skypay.initPayment(
@@ -67,7 +71,7 @@ Skypay.initPayment(
   
 - **onFailure**: On On failed transactions, you can use the onFailure callback. The function is responsible for handeling fail cases.
 
-- **onCancellation**: When user decides to cancel the payment the onCacellation function will be invoked.
+- **onCancel**: When user decides to cancel the payment the onCancel function will be invoked.
     
 
 That's it! You've successfully integrated Skybase Payments into your platform. If you have any questions or need further clarification, feel free to reach out to our support team.

@@ -5,7 +5,6 @@ import 'package:skypay_sdk/constants.dart';
 import 'package:skypay_sdk/payment_screen.dart';
 import 'package:skypay_sdk/sky_config.dart';
 
-
 class Skypay {
   static SkyConfig? _skyConfig;
 
@@ -27,7 +26,7 @@ class Skypay {
       final navigatorState = _skyConfig!.navigatorKey.currentState;
 
       final paymentLink = Constants.generatePaymentLink(
-        accessKey: _skyConfig!.accessKey,
+        accessKey: _skyConfig!.apiKey,
         amount: amount,
         orderId: orderId,
       );
@@ -54,10 +53,10 @@ class Skypay {
 
   static initConfig(
       {required GlobalKey<NavigatorState> navigatorKey,
-      required String accessKey}) {
-    _skyConfig = SkyConfig(
+      required String apiKey}) {
+    _skyConfig ??= SkyConfig(
       navigatorKey: navigatorKey,
-      accessKey: accessKey,
+      apiKey: apiKey,
     );
   }
 }

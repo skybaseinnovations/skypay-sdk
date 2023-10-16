@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class SkyConfig {
   GlobalKey<NavigatorState> navigatorKey;
-  String accessKey;
+  String apiKey;
 
-  SkyConfig({required this.navigatorKey, required this.accessKey});
+  SkyConfig({required this.navigatorKey, required this.apiKey});
 }
