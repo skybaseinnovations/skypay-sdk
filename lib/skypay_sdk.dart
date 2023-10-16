@@ -15,7 +15,7 @@ class Skypay {
     String? failureUrl,
     required Function(Map<String, String> successData) onSuccess,
     required Function(Map<String, String> failureData) onFailure,
-    VoidCallback? onCancellation,
+    VoidCallback? onCancel,
   }) async {
     try {
       if (_skyConfig == null) {
@@ -40,7 +40,7 @@ class Skypay {
       ));
 
       if (result == null) {
-        if (onCancellation != null) onCancellation();
+        if (onCancel != null) onCancel();
       } else if (result["status"]) {
         onSuccess(result["data"]);
       } else {

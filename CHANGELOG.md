@@ -2,6 +2,7 @@
 * Updated README with installation instructions
 * Update CHANGELOG
 * Update Variable Name
+* Add example
 
 
 ## 0.0.1
