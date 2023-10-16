@@ -5,7 +5,7 @@ class Constants {
   static const String lfu = "https://pay.skybase.com.np/payments/failure";
 
   static generatePaymentLink({
-    required String accessKey,
+    required String apiKey,
     required num amount,
     required String orderId,
     String? successUrl = lsu,
@@ -13,7 +13,7 @@ class Constants {
   }) {
     var paymentLink = paymentUrl;
 
-    paymentLink += "access_key=$accessKey";
+    paymentLink += "access_key=$apiKey";
     paymentLink += "&amount=$amount";
     paymentLink += "&success_url=$successUrl";
     paymentLink += "&failure_url=$failureUrl";

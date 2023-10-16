@@ -1,3 +1,8 @@
+## 0.0.1+1
+* Updated README with installation instructions
+* Update CHANGELOG
+
+
 ## 0.0.1
 
 ### Thursday, 12th October, 2023

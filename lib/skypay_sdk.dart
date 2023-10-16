@@ -26,7 +26,7 @@ class Skypay {
       final navigatorState = _skyConfig!.navigatorKey.currentState;
 
       final paymentLink = Constants.generatePaymentLink(
-        accessKey: _skyConfig!.apiKey,
+        apiKey: _skyConfig!.apiKey,
         amount: amount,
         orderId: orderId,
       );
