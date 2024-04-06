@@ -8,7 +8,7 @@ void main() {
 class SkyPayDemoApp extends StatefulWidget {
   final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>(); //Navigator Key
-  final String apiKey = "870027"; //Api Key
+  final String apiKey = "865773771"; //Api Key
 
   SkyPayDemoApp({super.key});
 
@@ -84,6 +84,7 @@ class _SkyPayDemoAppState extends State<SkyPayDemoApp> {
       orderId: "123459",
       amount: 100,
       onSuccess: (data) {
+        print(data);
         //On Payment Success
         setState(() {
           message = data.toString();
@@ -91,6 +92,7 @@ class _SkyPayDemoAppState extends State<SkyPayDemoApp> {
         });
       },
       onFailure: (data) {
+        print(data);
         // On Payment Failed
         setState(() {
           message = data.toString();

@@ -1,5 +1,7 @@
 library skypay_pkg;
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:skypay_sdk/constants.dart';
@@ -108,10 +110,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   void checkUrl(String url) {
+    print(url);
     if (url.startsWith(Constants.lsu)) {
       var uri = Uri.parse(url);
       Map<String, String> params = uri.queryParameters;
-      Navigator.pop(context, {"status": true, "data": params});
+      String base64String = params['data']!;
+      var bytes = base64.decode(base64String);
+      var jsonString = utf8.decode(bytes);
+      Map<String, dynamic> jsonData = jsonDecode(jsonString);
+      Navigator.pop(context, {"status": true, "data": jsonData});
     } else if (url.startsWith(Constants.lfu)) {
       var uri = Uri.parse(url);
       Map<String, String> params = uri.queryParameters;

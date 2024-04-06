@@ -1,8 +1,8 @@
 class Constants {
   static const String paymentUrl =
-      "https://pay.skybase.com.np/payments/initiate?";
-  static const String lsu = "https://pay.skybase.com.np/payments/success";
-  static const String lfu = "https://pay.skybase.com.np/payments/failure";
+      "https://app-uat.skypay.dev/checkout?";
+  static const String lsu = "https://pay.skybase.com.np/success";
+  static const String lfu = "https://pay.skybase.com.np/failure";
 
   static generatePaymentLink({
     required String apiKey,
@@ -13,11 +13,11 @@ class Constants {
   }) {
     var paymentLink = paymentUrl;
 
-    paymentLink += "access_key=$apiKey";
+    paymentLink += "api_key=$apiKey";
     paymentLink += "&amount=$amount";
     paymentLink += "&success_url=$successUrl";
     paymentLink += "&failure_url=$failureUrl";
-    paymentLink += "&order_id=$orderId";
+    paymentLink += "&code=$orderId";
     paymentLink += "&type=Internal";
 
     return paymentLink;

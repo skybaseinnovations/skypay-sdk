@@ -13,8 +13,8 @@ class Skypay {
     required String orderId,
     String? successUrl,
     String? failureUrl,
-    required Function(Map<String, String> successData) onSuccess,
-    required Function(Map<String, String> failureData) onFailure,
+    required Function(Map<String, dynamic> successData) onSuccess,
+    required Function(Map<String, dynamic> failureData) onFailure,
     VoidCallback? onCancel,
   }) async {
     try {
