@@ -1,3 +1,8 @@
+## 0.0.3+3
+* Updated README with installation instructions
+* Update CHANGELOG
+* Update variables for new platform
+
 ## 0.0.2+1
 * Updated README with installation instructions
 * Update CHANGELOG

@@ -2,9 +2,9 @@
 SkyPay is a comprehensive payment gateway solution in Nepal by SkyBase Innovations. It simplifies integration, boosts developer productivity, reduces costs, and minimizes technical challenges. With options like Manual Entry, Merchant API, and SkyPay Managed, it streamlines online payments and is especially beneficial for developers. It also supports various payment methods, including Khalti, eliminating the need to integrate with individual banks.
 
 ## **Pre-requisites**
-1. Create your **FREE MERCHANT ACCOUNT** here: [Merchant Registration Page](https://pay.skybase.com.np/register)
+1. Create your **FREE MERCHANT ACCOUNT** here: [Merchant Registration Page](https://skypay.dev)
 2. Download & set up the **Merchant App** from the link available your Dashboard
-3. Copy your **Access Key / API Key** Key provided on your dashboard page
+3. Copy your **API Key** Key provided on your dashboard page
 
 ## **Getting Started**
 
@@ -31,7 +31,7 @@ return MaterialApp(
     );
 ```
 ### Retrieve Your API Key from Skypay Dashboard
-Navigate to your [Skypay dashboard](https://pay.skybase.com.np/dashboard) and copy the API Key from the ```'My API Key'``` section.
+Navigate to your [Skypay dashboard](https://app.skypay.dev) and copy the API Key from the ```'My Profile'``` section.
 </br></br><img src="assets/api_key.png" alt="Markdown Monster icon" style="height: 200px; width:auto;" />
 
 ### Initialize SkyPay Configuration
@@ -82,18 +82,18 @@ Replace `"Amount In Rupees"`: Set the transaction amount in Rupees as needed.
 | amount | true | The transaction amount. |  |
 | success_url | false | URL to be redirected when payment successful |  |
 | failure_url | false | URL to be redirected when payment fails |  |
-| order_id | true | Unique identifier for the order (same order_id is available for 10 minutes) |  |
+| order_id | true | Unique identifier for the order |  |
 
 ### **Callbacks**
 In the SkyPay Payment Gateway integration, you can utilize callback functions to handle different transaction outcomes. These callbacks are essential for managing various scenarios, such as successful transactions, failed transactions, and user-initiated cancellations.
 
-#### **onSuccess Callabck :** 
+#### **onSuccess Callback :** 
 - The `onSuccess` callback is designed to handle actions that occur when a transaction is successfully completed. This function will be invoked when a transaction is successful, allowing you to perform specific tasks or actions associated with a successful transaction.
 
-#### **onFailure Callabck :** 
+#### **onFailure Callback :** 
 - The `onFailure` callback comes into play when a transaction encounters issues and fails to complete. This callback function is responsible for managing failed transactions, and it provides you with the ability to handle error cases, log details, or take appropriate actions.
 
-#### **onCancel Callabck :**
+#### **onCancel Callback :**
 - The `onCancel` callback is triggered when a user decides to cancel a payment transaction before its completion. This callback function allows you to manage the cancellation event, which can include actions like returning the user to a specific screen or providing a cancellation confirmation.
 
 These callback functions are essential for ensuring a seamless and user-friendly payment experience in your application. You can customize each callback to fit your specific requirements and user interactions.
@@ -104,5 +104,5 @@ In this guide, we've covered the essential steps to get started with Skypay SDK 
 
 We hope this documentation has been helpful in seamlessly integrating the Skypay SDK into your Flutter application.
 
-For more detailed information about Skypay initialization, please refer to the [Skypay documentation](http://docs.pay.skybase.com.np/).
+For more detailed information about Skypay initialization, please refer to the [Skypay documentation](http://docs.skypay.dev/).
 
