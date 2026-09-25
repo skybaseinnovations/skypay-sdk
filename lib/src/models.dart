@@ -107,6 +107,10 @@ class SkyPayment {
     'invalid',
   ].contains(status);
   bool get isSuccess => ['complete', 'completed', 'success'].contains(status);
+
+  /// Manual Mode: customer may leave after mark paid when merchant chose continue.
+  bool get allowsContinueAfterMarkPaid =>
+      (data?['after_mark_paid'] as String?) == 'continue';
 }
 
 class ProcessData {

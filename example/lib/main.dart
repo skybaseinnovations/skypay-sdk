@@ -3,8 +3,9 @@ import 'package:skypay_sdk/skypay_sdk.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-  // Initialize SkyPay SDK with debug logging enabled
-  SkyPay.init('sk_CFj3rMm6bxkZfJ9U1ZS88sYP6JGLVH9y', debug: true);
+  // Replace with your SkyPay API key from https://app.skypay.dev
+  const apiKey = String.fromEnvironment('SKYPAY_API_KEY', defaultValue: 'YOUR_API_KEY');
+  SkyPay.init(apiKey, debug: true);
   runApp(const MyApp());
 }
 

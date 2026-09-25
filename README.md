@@ -1,71 +1,99 @@
-# SkyPay SDK v2 for Flutter
+# SkyPay Flutter SDK — Nepal payment aggregator (eSewa, Khalti & more)
 
-Seamless payment integration for Flutter with SkyPay SDK – Simplify and secure payments in your apps effortlessly.
+**Simplifying payment aggregator integration in Nepal.**  
+Plug-and-play aggregator for developers, startups, and businesses integrating **eSewa**, **Khalti**, and more — **one Flutter SDK**, multiple payment methods.
+
+[Get started](https://app.skypay.dev/signup) · [Documentation](https://skypay.dev/guides) · [pub.dev](https://pub.dev/packages/skypay_sdk)
+
+---
 
 ## Features
 
-- **Easy Initialization**: Initialize with a single line of code.
-- **Provider List**: Automatically fetches and displays available payment providers.
-- **In-App Browser**: Handles payment redirects securely using `flutter_inappwebview`.
-- **Status Polling**: Automatically polls for payment status updates.
-- **Support for All Modes**: API, Manual, and Assisted payment modes.
+- **Dynamic providers** — Provider list loads from your SkyPay merchant account
+- **API, Manual & Assisted modes** — Supports every integration mode your account enables
+- **In-app checkout** — Secure payment redirects via `flutter_inappwebview`
+- **Status polling** — Automatic payment status updates
+- **One integration** — eSewa, Khalti, Connect IPS, Fonepay, and more behind one SDK
+
+---
 
 ## Installation
 
-Add the following to your `pubspec.yaml`:
+From pub.dev:
+
+```yaml
+dependencies:
+  skypay_sdk: ^0.0.6
+```
+
+From Git:
 
 ```yaml
 dependencies:
   skypay_sdk:
     git:
       url: https://github.com/skybaseinnovations/skypay-sdk.git
+      ref: main
 ```
+
+---
 
 ## Usage
 
 ### 1. Initialize the SDK
 
-Initialize the SDK in your `main()` method or before starting a payment.
+Get your API key from the [SkyPay dashboard](https://app.skypay.dev/signup).
 
 ```dart
 import 'package:skypay_sdk/skypay_sdk.dart';
 
 void main() {
-  SkyPay.init('YOUR_API_KEY');
-  runApp(MyApp());
+  SkyPay.init('YOUR_API_KEY', debug: true);
+  runApp(const MyApp());
 }
 ```
 
-### 2. Start a Payment Intent
-
-Create a `SkyPayIntent` and call `startPayment`.
+### 2. Start a payment
 
 ```dart
-void _handlePayment() {
-  final intent = SkyPayIntent(
-    amount: 100.0,
-    code: 'ORD-12345',
-    successUrl: 'https://yourdomain.com/success',
-    failureUrl: 'https://yourdomain.com/failure',
-  );
+final intent = SkyPayIntent(
+  amount: 100.0,
+  code: 'ORD-12345',
+  successUrl: 'https://yourdomain.com/success',
+  failureUrl: 'https://yourdomain.com/failure',
+);
 
-  SkyPay.instance.startPayment(
-    context,
-    intent: intent,
-    onPaymentCompleted: (payment) {
-      print('Payment Successful: ${payment.id}');
-    },
-    onError: (message) {
-      print('Payment Error: $message');
-    },
-  );
-}
+await SkyPay.instance.startPayment(
+  context,
+  intent: intent,
+  onPaymentCompleted: (payment) {
+    // Payment completed on one of the aggregated methods
+  },
+  onError: (message) {},
+);
 ```
+
+---
 
 ## Example
 
-Check the `example` directory for a full demonstration.
+See the [`example/`](example/) directory for a runnable demo app.
+
+---
+
+## Links
+
+| Resource | URL |
+| -------- | --- |
+| Merchant dashboard | [app.skypay.dev](https://app.skypay.dev/) |
+| Documentation | [skypay.dev/guides](https://skypay.dev/guides) |
+| Package | [pub.dev/packages/skypay_sdk](https://pub.dev/packages/skypay_sdk) |
+| Discord community | [discord.gg/p8u9xZKcxB](https://discord.gg/p8u9xZKcxB) |
+
+---
 
 ## License
 
-MIT
+BSD-3-Clause — see [LICENSE](LICENSE).
+
+Proudly built in Pokhara, Nepal — a product by **Skybase Innovations**.

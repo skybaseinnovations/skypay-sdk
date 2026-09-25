@@ -33,6 +33,7 @@ class _CheckoutViewState extends State<CheckoutView> {
   PaymentProvider? _selectedProvider;
   Timer? _pollingTimer;
   bool _isVerifying = false;
+  bool _awaitingReview = false;
   bool _proceededToManual = false;
 
   @override
@@ -64,7 +65,11 @@ class _CheckoutViewState extends State<CheckoutView> {
       });
 
       if (_activePayment?.status == 'waiting') {
-        _startPollingAndProcessing();
+        if (_activePayment!.allowsContinueAfterMarkPaid) {
+          setState(() => _awaitingReview = true);
+        } else {
+          _startPollingAndProcessing();
+        }
       }
     } catch (e) {
       if (mounted) setState(() => _isLoading = false);
@@ -268,12 +273,47 @@ class _CheckoutViewState extends State<CheckoutView> {
           _isLoading = false;
         });
       }
-      _startPollingAndProcessing();
+      if (updated.allowsContinueAfterMarkPaid) {
+        if (mounted) setState(() => _awaitingReview = true);
+        _showSubmittedForReviewDialog(updated);
+      } else {
+        _startPollingAndProcessing();
+      }
     } catch (e) {
       if (mounted) setState(() => _isLoading = false);
       _showErrorDialog(e.toString());
       widget.onError?.call(e.toString());
     }
+  }
+
+  void _showSubmittedForReviewDialog(SkyPayment payment) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: const Row(
+          children: [
+            Icon(Icons.check_circle_outline, color: Color(0xFF10B981)),
+            SizedBox(width: 8),
+            Flexible(child: Text('Submitted for review')),
+          ],
+        ),
+        content: const Text(
+          'You can leave this screen. The merchant will verify your transfer and update your order — you don’t need to wait here.',
+          style: TextStyle(fontSize: 14),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // close dialog
+              Navigator.of(context).pop(payment); // leave checkout with waiting payment
+            },
+            child: const Text('Continue'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -312,6 +352,10 @@ class _CheckoutViewState extends State<CheckoutView> {
             ),
             onPressed: () {
               if (_isVerifying) return;
+              if (_awaitingReview) {
+                Navigator.of(context).pop(_activePayment);
+                return;
+              }
               if (_proceededToManual && _activePayment?.status != 'waiting') {
                 setState(() => _proceededToManual = false);
               } else {
@@ -898,9 +942,64 @@ class _CheckoutViewState extends State<CheckoutView> {
         const SizedBox(height: 20),
         _buildQRCode(data),
         const SizedBox(height: 32),
-        if (!_isVerifying) _buildMarkAsPaidButton(),
+        if (_awaitingReview ||
+            (_activePayment?.status == 'waiting' &&
+                (_activePayment?.allowsContinueAfterMarkPaid ?? false)))
+          _buildSubmittedForReviewCard()
+        else if (!_isVerifying)
+          _buildMarkAsPaidButton(),
       ],
     );
+  }
+
+  Widget _buildSubmittedForReviewCard() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: const Color(0xFFECFDF5),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFFA7F3D0)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Row(
+            children: [
+              Icon(Icons.check_circle_outline, color: Color(0xFF059669)),
+              SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Payment submitted for review',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF065F46),
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'You can leave this screen. The merchant will verify your transfer — you don’t need to wait here.',
+            style: TextStyle(color: Color(0xFF047857), fontSize: 12),
+          ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(_activePayment),
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size.fromHeight(48),
+              backgroundColor: const Color(0xFF0066FF),
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+            child: const Text('Continue'),
+          ),
+        ],
+      ),
+    ).animate().fadeIn().slideY(begin: 0.05);
   }
 
   Widget _buildMarkAsPaidButton() {

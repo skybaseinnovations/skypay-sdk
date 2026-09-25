@@ -2,6 +2,7 @@ export 'src/models.dart';
 import 'package:flutter/material.dart';
 import 'src/models.dart';
 import 'src/api_client.dart';
+import 'src/constants.dart';
 import 'src/ui/checkout_view.dart';
 
 class SkyPay {
@@ -11,7 +12,7 @@ class SkyPay {
   SkyPay._internal(String apiKey, {String? baseUrl, bool debug = false}) {
     _client = SkyPayClient(
       apiKey: apiKey,
-      baseUrl: baseUrl ?? 'https://api.skypay.dev/api/v1/checkout',
+      baseUrl: baseUrl ?? kSkyPayDefaultBaseUrl,
       debug: debug,
     );
   }

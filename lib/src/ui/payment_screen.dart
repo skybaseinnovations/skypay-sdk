@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models.dart';
+import '../constants.dart';
 
 class SkyPayBrowser extends InAppBrowser {
   final Function(String url)? onURLChanged;
@@ -82,7 +83,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         // Fallback detection for common patterns
         if (!isSuccess && !isFailure) {
           if (url.contains('status=Completed') ||
-              url.contains('checkout.skypay.dev/handle')) {
+              url.contains(kSkyPayCheckoutHandlePath)) {
             isSuccess = true;
           } else if (url.contains('status=Failed') ||
               url.contains('status=Canceled')) {

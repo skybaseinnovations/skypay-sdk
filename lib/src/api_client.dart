@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'models.dart';
+import 'constants.dart';
 
 class SkyPayClient {
   final String apiKey;
@@ -9,7 +10,7 @@ class SkyPayClient {
 
   SkyPayClient({
     required this.apiKey,
-    this.baseUrl = 'https://api.skypay.com.np/api/v1/checkout',
+    this.baseUrl = kSkyPayDefaultBaseUrl,
     this.debug = false,
   });
 
